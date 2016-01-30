@@ -11,13 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
     /**
+     * Index page
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
     {
-        $test = '';
-//        $users = $this->getDoctrine()->getRepository('AppBundle:Users')->findAllUsers();
-
         // replace this example code with whatever you need
         return $this->render(
             'default/index.html.twig'
@@ -25,6 +23,7 @@ class DefaultController extends Controller
     }
 
     /**
+     * Route to get all the users for datatable
      * @Route("/getAllUsers")
      * @Method("GET")
      * @param Request $request
@@ -37,20 +36,11 @@ class DefaultController extends Controller
         $get['columns'] = &$columns;
         $get['sEcho'] = 0;
 
-//        if (isset($params['length'])) {
-//            $get['iDisplayLength'] = $params['length'];
-//        }
-//        if (isset($params['start'])) {
-//            $get['iDisplayStart'] = $params['start'];
-//        }f
-
         $rResult = $this->getDoctrine()->getRepository('AppBundle:Users')->ajaxTable($get);
 
         /* Data set length after filtering */
         $iFilteredTotal = count($rResult);
-        /*
-         * Output
-         */
+
         $output = array(
             "sEcho" => intval($get['sEcho']),
             "iTotalRecords" => $this->getDoctrine()->getRepository('AppBundle:Users')->getCount(),

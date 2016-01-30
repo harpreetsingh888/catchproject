@@ -15,16 +15,12 @@ use Doctrine\ORM\Query\Expr;
  */
 class UsersRepository extends EntityRepository
 {
-    public function findAllUsers()
-    {
-        $qb = $this->createQueryBuilder('u')
-            ->select('u.id, u.first_name, u.last_name, u.email, u.gender, u.ip_address, u.company, u.city, u.title, u.website')
-            ->addOrderBy('u.id', 'ASC');
-
-        return $qb->getQuery()->getResult();
-    }
-
-
+    /**
+     * Get all the users for the datatable rendering
+     * @param array $get
+     * @param bool $flag
+     * @return array|Query
+     */
     public function ajaxTable(array $get, $flag = false){
         /* Indexed column (used for fast and accurate table cardinality) */
         $alias = 'u';

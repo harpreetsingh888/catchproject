@@ -14,7 +14,8 @@ Copy the project into you var/www/html/ directory and change your current direct
          1. Execute php app/console doctrine:schema:update --force
 
      * Build assets
-         1. Build the assets(css and js) using php app/console assetic:dump
+         1. Build the assets(css and js) using
+            sudo rm -rf app/cache/* && app/console assetic:dump
 
      * Run project
          1. To run the project execute php app/console server:run

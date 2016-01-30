@@ -1,63 +1,62 @@
 $(function(){
     "use strict";
-    var usersModel = Backbone.Model.extend({
-        defaults:
-        {
-            id: '',
-            first_name: '',
-            last_name: '',
-            email: '',
-            gender: '',
-            ip_address: '',
-            company: '',
-            city: '',
-            title: '',
-            website: ''
-        }
-    });
-
-    var usersCollection = Backbone.Collection.extend({
-        model: usersModel,
-        url: '/getAllUsers'
-    });
-
-    var users = new usersCollection;
-
-    var usersView = Backbone.View.extend({
-        tagName: 'tbody',
-        initialize: function() {
-            this.render();
-        },
-        render: function() {
-            this.collection.each(function(user) {
-                var row = new rowView({model: user});
-                $('#tableContainer').append(row.$el.html());
-            });
-            return this;
-        }
-    });
-
-    var rowView = Backbone.View.extend({
-        tagName: 'tr',
-        className: 'row',
-        template: _.template($('#row-template').html()),
-        initialize: function() {
-            this.render();
-        },
-        render: function()
-        {
-            this.$el.html(this.template(this.model.toJSON()));
-            return this;
-        }
-    });
+/** Initially I created view. model and collection to render the table but than i used DataTables.js to go for the table */
+    //var usersModel = Backbone.Model.extend({
+    //    defaults:
+    //    {
+    //        id: '',
+    //        first_name: '',
+    //        last_name: '',
+    //        email: '',
+    //        gender: '',
+    //        ip_address: '',
+    //        company: '',
+    //        city: '',
+    //        title: '',
+    //        website: ''
+    //    }
+    //});
+    //
+    //var usersCollection = Backbone.Collection.extend({
+    //    model: usersModel,
+    //    url: '/getAllUsers'
+    //});
+    //
+    //var users = new usersCollection;
+    //
+    //var usersView = Backbone.View.extend({
+    //    tagName: 'tbody',
+    //    initialize: function() {
+    //        this.render();
+    //    },
+    //    render: function() {
+    //        this.collection.each(function(user) {
+    //            var row = new rowView({model: user});
+    //            $('#tableContainer').append(row.$el.html());
+    //        });
+    //        return this;
+    //    }
+    //});
+    //
+    //var rowView = Backbone.View.extend({
+    //    tagName: 'tr',
+    //    className: 'row',
+    //    template: _.template($('#row-template').html()),
+    //    initialize: function() {
+    //        this.render();
+    //    },
+    //    render: function()
+    //    {
+    //        this.$el.html(this.template(this.model.toJSON()));
+    //        return this;
+    //    }
+    //});
 
     var AppView = Backbone.View.extend({
         initialize: function() {
             this.render();
-            users.fetch();
         },
         render: function() {
-            //var updatedUserViewnew = new usersView({'collection': users});
             $('#tableContainer').DataTable({
                 iDisplayLength: 10,
                 bPaginate: true,
@@ -67,10 +66,10 @@ $(function(){
                 sEcho: 0,
                 "fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
                     $.ajax({
-                        "dataType": "json",
-                        "type": "GET",
-                        "url": '/getAllUsers',
-                        "data": aoData,
+                        dataType: 'json',
+                        type: 'GET',
+                        url: '/getAllUsers',
+                        data: aoData,
                         "success": function (response) {
                             this.data = response.aaData;
                             fnCallback(response);
