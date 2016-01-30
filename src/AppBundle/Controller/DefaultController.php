@@ -36,6 +36,10 @@ class DefaultController extends Controller
         $get['columns'] = &$columns;
         $get['sEcho'] = 0;
 
+        if ( isset( $params['start'] ) && isset($params['length']) && $params['length'] !== '-1' ){
+            $get['iDisplayStart'] = $params['start'];
+            $get['iDisplayLength'] = $params['length'];
+        }
         $rResult = $this->getDoctrine()->getRepository('AppBundle:Users')->ajaxTable($get);
 
         /* Data set length after filtering */
@@ -44,7 +48,7 @@ class DefaultController extends Controller
         $output = array(
             "sEcho" => intval($get['sEcho']),
             "iTotalRecords" => $this->getDoctrine()->getRepository('AppBundle:Users')->getCount(),
-            "iTotalDisplayRecords" => $iFilteredTotal,
+            "iTotalDisplayRecords" => $this->getDoctrine()->getRepository('AppBundle:Users')->getCount(),
             "aaData" => array()
         );
         foreach($rResult as $aRow)
