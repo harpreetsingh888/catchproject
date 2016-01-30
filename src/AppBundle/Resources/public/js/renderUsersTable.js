@@ -58,7 +58,7 @@ $(function(){
         },
         render: function() {
             $('#tableContainer').DataTable({
-                iDisplayLength: 10,
+                iDisplayLength: "All",
                 bPaginate: true,
                 sPaginationType: "full_numbers",
                 bServerSide: true,
