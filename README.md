@@ -3,6 +3,9 @@ catchproject
 
 Copy the project into you var/www/html/ directory and change your current directory to /var/www/html/catchproject
 
+     * Update packages via Composer
+        1. Execute composer install
+
      * Database name is catchproject.
          1. Execute php app/console doctrine:database:create command to generate database named catchproject
 
