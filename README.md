@@ -9,6 +9,9 @@ Copy the project into you var/www/html/ directory and change your current direct
      * Generate table
          1. Execute php app/console doctrine:schema:update --force
 
+     * Import excel
+         1. Use Phpmyadmin or MySQL Workbench to import customers.csv
+
      * Build assets
          1. Build the assets(css and js) using
             sudo rm -rf app/cache/* && app/console assetic:dump
